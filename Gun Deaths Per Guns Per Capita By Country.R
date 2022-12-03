@@ -51,11 +51,6 @@ df_suicide_adj[158, 7] <- df_suicide_adj[158, 7]*.41
 df['firearmdeathsperfirearmspercapita'] = df['totalDeaths']/df['per100']
 df_suicide_adj['firearmdeathsperfirearmspercapita'] = df_suicide_adj['totalDeaths']/df_suicide_adj['per100']
 
-# remove large amount of outliers
-#df <- df[!rowSums(df[9] > 1000),]
-#df_suicide_adj <- df_suicide_adj[!rowSums(df_suicide_adj[9] > 1000),]
-
-
 # plotting df
 plot(x = df$per100, y = df$firearmdeathsperfirearmspercapita, xlab = "Firearms per 100k",
      ylab = "Firearm Deaths Per Firearms Per Capita",
@@ -81,9 +76,11 @@ plot(x = df_suicide_adj$totalRate, y = df_suicide_adj$firearmdeathsperfirearmspe
 regdf = lm(totalDeaths~firearms, data = df)
 summary(regdf)
 
-reg2df = lm(totalDeaths~firearms + urban, data = df)
+reg2df = lm(totalDeaths~firearms + pop, data = df)
 summary(reg2df)
 
-reg3df = lm(totalDeaths~firearms + urban + landmasskm + pop + densitypkm, data = df)
+reg3df = lm(totalDeaths~firearms + pop + urban, data = df)
 summary(reg3df)
 
+reg4df = lm(totalDeaths~firearms + pop + urban + landmasskm, data = df)
+summary(reg4df)
